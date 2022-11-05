@@ -1,0 +1,37 @@
+//define si un numero es primo(Funciones retornan Boolean se llaman predicados)
+def isPrime(n:Int)=(2 to n-1).forall( k => n % k != 0)
+isPrime(12)
+isPrime(13)
+//P.funcional:forma de escribir programas utilizando unicamente funciones de orden superior y valores inmutables.
+//Funciones de orden superior: pasa como parametro(estudiantes.maxBy(e = > e.edad))
+// se puede asignar a una variable, 
+//es devuelta como valor por otra funcion. 
+def sum (a: Int, b: Int) = a + b 
+sum(2,3)
+def genero(sexo:String) = (nombre:String) => if(sexo.equalsIgnoreCase("F"))"Estimada " + nombre else "Estimado " + nombre
+val x = genero("F")
+x("Diana")
+val saludo = (genero("M"))("Junior")
+//ejercicios
+//Asignar una funcion a un valor
+val squareSum = ( x: Int, y : Int) => (x*x + y*y)
+squareSum(1,2)
+//Asignar funcion creada a un valor
+def add1( x : Double) = x +1
+val sum1 = add1(_)
+//funcion como un parametro
+def execute(f: (Int,Int) => Int , a: Int , b: Int) = f(a,b)
+val sumar = (a: Int , b:Int) => a + b 
+execute (sumar, 4, 5)
+//funcion devuelve ootra funcion
+def greetingI18N( lan: String): (String) => String = ( name: String ) => {
+    val english = () => "Hello, " + name
+    val spanish = () => "Hola, " + name
+    lan match {
+          case "english"  => english ()
+          case "spanish"  =>spanish()
+    }
+}
+ val español = greetingI18N("spanish")("Diana")
+
+ val english = greetingI18N("english")("Diana")
