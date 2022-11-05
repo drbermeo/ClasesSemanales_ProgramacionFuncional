@@ -1,0 +1,57 @@
+//funciones puras
+//trabaja con sus argumentos //no modifica el exterior // siempre que se la invoque devuelve el mismo valor
+//Valores inmutables:  se le asigna el valor una unica vez y eso no cambia.
+val cedula = "1108765321"
+// cedula = "1108765320" no se puede realizar esta accion 
+// var cedula = "1108765320" para poder modificar o cambiar
+// funcion de orden superior
+// 1. Una funcion que puede asignarse a un valor 
+(x:Double) => -Math.pow(x,2)+8* x -12
+val f1 = (x:Double) => -Math.pow(x,2)+8 * x -12
+f1(12)
+((x:Double) => -Math.pow(x,2)+8 * x -12)(12)//Otra forma de ejecutar
+//2.Una funcion se envia como parametro
+//def integracion(a: Int ,b:Int, f:Double=>Double)= {}
+def integracion(a: Int , b:Int, f:Double=> Double)= {
+    val intermedio = ((a+b/2.0))
+    val fa= f(a)
+    val fi = f(intermedio)
+    val fb=f(b)
+    (b-a)*(fa+4*fi+fb)/6
+    }
+//; es opcional
+//3. Una funcion que devuelve una funcion
+def select( option: Char): (Int, Int) => Double= {
+       option match {
+          case '+'  => (a: Int, b: Int)=> a+b
+         case '-'  => (a: Int, b: Int)=> a-b
+         case '*'  => (a: Int, b: Int)=> a*b
+         case '/'  => (a: Int, b: Int)=> a/b.toDouble
+         case _ => (a: Int, b: Int)=> 0 / (a+b)
+    }
+}
+val operation = select('+')(5,3)
+select('-')(5,3)
+//OBTENER DATOS SECUENCIAS
+
+//Primera opcion : val isEven = (k:Int) => if (k%2 ==0) 1 else 0
+// mas funcional 
+def isEven(k: Int) : Int = (k % 2 ) match{
+    case 0 => 1
+    case _ =>0
+    }
+
+//que es sum y que es map
+val nums = List(1,2,3)
+nums.map( x=> x+1 )
+def add1(a: Int): Int = a+1
+//diferentes formas de ejecutar
+nums.map(add1)
+nums.map(x=> add1(x))
+nums.map(add1(_))
+//funcion sin nombre
+val sumaDos= (a:Int, b: Int) => a+b
+// dara error: o sabe cual es el segudo parametro nums.map(sumaDos)
+ nums.map( x=>sumaDos(x,x))
+def countEven (s: List[Int]) : Int = s.map(isEven).sum
+countEven(List(5,6,7,8,9))
